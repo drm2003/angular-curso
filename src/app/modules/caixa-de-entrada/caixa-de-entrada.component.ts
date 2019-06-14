@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { EmailService } from '../../email.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PageDataService } from '../../services/page-data.service';
+import { HeaderDataService } from '../../services/header.service';
 
 @Component({
   selector: 'app-caixa-de-entrada',
@@ -20,6 +21,7 @@ export class CaixaDeEntradaComponent implements OnInit {
   private _isNewEmailFormOpen = false;
   emailList = [];
   mensagemErro;
+  termoParaFiltro = '';
 
   email = {
     destinatario: '',
@@ -28,7 +30,9 @@ export class CaixaDeEntradaComponent implements OnInit {
     dataDeEnvio: ''
   }
 
-  constructor(private emailService: EmailService, private pageService: PageDataService) { }
+  constructor(private emailService: EmailService,
+              private pageService: PageDataService,
+              private headerService: HeaderDataService) { }
 
   ngOnInit() {
     this.emailService
@@ -43,7 +47,13 @@ export class CaixaDeEntradaComponent implements OnInit {
       );
 
     this.pageService
-        .defineTitulo('Caixa de entrada - CMail');
+      .defineTitulo('Caixa de entrada - CMail');
+
+      this.headerService
+          .valorDoFiltro
+          .subscribe(
+            novoValor => this.termoParaFiltro = novoValor
+          )
   }
 
   get isNewEmailFormOpen() {

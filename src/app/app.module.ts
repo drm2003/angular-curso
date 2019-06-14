@@ -8,6 +8,7 @@ import { Cadastro2Module } from './modules/cadastro2/cadastro2.module';
 import { ModuloRoteamento } from './app-routing.module';
 import localePt  from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common'
+import { FiltroPorAssunto } from './modules/caixa-de-entrada/filtro-por-assunto.pipe';
 
 registerLocaleData(localePt, 'pt');
 

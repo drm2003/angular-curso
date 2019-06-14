@@ -4,10 +4,12 @@ import { CaixaDeEntradaComponent } from './caixa-de-entrada.component';
 import { SharedComponentsModule } from '../../components/sharedcomponents/sharedcomponents.module';
 import { FormsModule } from '@angular/forms';
 import { CaixaDeEntradaRoutingModule } from './caixa-de-entrada-routing.module';
+import { FiltroPorAssunto } from './filtro-por-assunto.pipe';
 
 @NgModule({
   declarations: [
-    CaixaDeEntradaComponent
+    CaixaDeEntradaComponent,
+    FiltroPorAssunto
   ],
   imports: [
     CommonModule,
