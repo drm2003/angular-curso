@@ -31,8 +31,8 @@ export class CaixaDeEntradaComponent implements OnInit {
   }
 
   constructor(private emailService: EmailService,
-              private pageService: PageDataService,
-              private headerService: HeaderDataService) { }
+    private pageService: PageDataService,
+    private headerService: HeaderDataService) { }
 
   ngOnInit() {
     this.emailService
@@ -49,11 +49,11 @@ export class CaixaDeEntradaComponent implements OnInit {
     this.pageService
       .defineTitulo('Caixa de entrada - CMail');
 
-      this.headerService
-          .valorDoFiltro
-          .subscribe(
-            novoValor => this.termoParaFiltro = novoValor
-          )
+    this.headerService
+      .valorDoFiltro
+      .subscribe(
+        novoValor => this.termoParaFiltro = novoValor
+      )
   }
 
   get isNewEmailFormOpen() {
@@ -121,4 +121,14 @@ export class CaixaDeEntradaComponent implements OnInit {
     }
   }
 
+  filtrarEmailsPorAssunto() {
+    const termoParaFiltroEmMinusculo = this.termoParaFiltro.toLocaleLowerCase();
+
+    return this.emailList.filter(
+      email => {
+        const assunto = email.assunto.toLowerCase();
+        return assunto.includes(termoParaFiltroEmMinusculo)
+      }
+    )
+  }
 }

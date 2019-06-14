@@ -10,7 +10,7 @@
         </section>
         <!-- Floating Multiline Textfield -->
         <ul>
-          <li *ngFor="let email of emailList | filtroPorAssunto:termoParaFiltro">
+          <li *ngFor="let email of filtrarEmailsPorAssunto()">
             <cmail-list-item [email]="email" (eventoVaiRemover)="handleRemoveEmail($event, email.id)">
             </cmail-list-item>
           </li>
