@@ -36,11 +36,8 @@ export class CaixaDeEntradaComponent implements OnInit {
           lista => {
             this.emailList = lista;
           }
-          ,(responseError : HttpErrorResponse) => {
-            console.log(responseError);
-            if(!responseError.ok){
-              this.mensagemErro = 'Problema com conexão!Não foi possível listar os emails!';
-            }
+          ,(responseError) => {
+            this.mensagemErro = responseError.message;
           }
         )
   }
@@ -93,5 +90,21 @@ export class CaixaDeEntradaComponent implements OnInit {
  
      formEmail.reset();
    } */
+
+   handleRemoveEmail(eventoVaiRemover, emailId){
+    console.log(eventoVaiRemover);
+    if(eventoVaiRemover.status === 'removing'){
+      //o próximo passo é agar da API!
+      this.emailService
+          .deletar(emailId)
+          .subscribe(
+            res => {
+              console.log(res);
+              this.emailList = this.emailList.filter(email => email.id != emailId);
+            }
+            , err => console.log(err)
+          )
+    }
+   }
 
 }

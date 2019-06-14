@@ -13,7 +13,7 @@
         <!-- Floating Multiline Textfield -->
         <ul>
           <li *ngFor="let email of emailList">
-            <cmail-list-item [email]="email"></cmail-list-item>
+            <cmail-list-item [email]="email" (eventoVaiRemover)="handleRemoveEmail($event, email.id)"></cmail-list-item>
           </li>
         </ul>
         <button class="globalFab tooltip btn mdl-button mdl-js-button mdl-button--fab mdl-button--colored" role="tooltip" aria-label="Criar novo email"
