@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EmailService } from '../../email.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PageDataService } from '../../services/page-data.service';
 
 @Component({
   selector: 'app-caixa-de-entrada',
@@ -27,19 +28,22 @@ export class CaixaDeEntradaComponent implements OnInit {
     dataDeEnvio: ''
   }
 
-  constructor(private emailService: EmailService) { }
+  constructor(private emailService: EmailService, private pageService: PageDataService) { }
 
   ngOnInit() {
     this.emailService
-        .listar()
-        .subscribe(
-          lista => {
-            this.emailList = lista;
-          }
-          ,(responseError) => {
-            this.mensagemErro = responseError.message;
-          }
-        )
+      .listar()
+      .subscribe(
+        lista => {
+          this.emailList = lista;
+        }
+        , (responseError) => {
+          this.mensagemErro = responseError.message;
+        }
+      );
+
+    this.pageService
+        .defineTitulo('Caixa de entrada - CMail');
   }
 
   get isNewEmailFormOpen() {
@@ -69,10 +73,10 @@ export class CaixaDeEntradaComponent implements OnInit {
             dataDeEnvio: ''
           }
         }
-        ,erro => {
+        , erro => {
           console.error(erro);
         });
-      formEmail.reset();
+    formEmail.reset();
   }
 
   /*  handleNewEmail(formEmail: NgForm) {
@@ -91,20 +95,20 @@ export class CaixaDeEntradaComponent implements OnInit {
      formEmail.reset();
    } */
 
-   handleRemoveEmail(eventoVaiRemover, emailId){
+  handleRemoveEmail(eventoVaiRemover, emailId) {
     console.log(eventoVaiRemover);
-    if(eventoVaiRemover.status === 'removing'){
+    if (eventoVaiRemover.status === 'removing') {
       //o próximo passo é agar da API!
       this.emailService
-          .deletar(emailId)
-          .subscribe(
-            res => {
-              console.log(res);
-              this.emailList = this.emailList.filter(email => email.id != emailId);
-            }
-            , err => console.log(err)
-          )
+        .deletar(emailId)
+        .subscribe(
+          res => {
+            console.log(res);
+            this.emailList = this.emailList.filter(email => email.id != emailId);
+          }
+          , err => console.log(err)
+        )
     }
-   }
+  }
 
 }

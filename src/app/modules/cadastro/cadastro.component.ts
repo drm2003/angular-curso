@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse, HttpResponseBase, HttpErrorResponse } from '@
 import { map, catchError } from 'rxjs/operators'
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
+import { PageDataService } from '../../services/page-data.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,9 +23,13 @@ export class CadastroComponent implements OnInit {
     telefone: new FormControl('', [Validators.required, Validators.pattern('\\d{4,5}-?\\d{4}')]),
     avatar: new FormControl('', Validators.required, this.validaImagem.bind(this)),
   })
-  constructor(private httpClient: HttpClient, private roteador: Router) { }
+  constructor(private httpClient: HttpClient, 
+              private roteador: Router, 
+              private pageService: PageDataService) { }
 
   ngOnInit() {
+    this.pageService
+        .defineTitulo('Cadastro de Usuários - CMail');
   }
 
   handleCadastrarUsuario() {
