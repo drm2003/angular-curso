@@ -2,7 +2,7 @@ import { AppComponent } from './app.component';
 import { SharedComponentsModule } from './components/sharedcomponents/sharedcomponents.module';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CmailFormModule } from './components/cmailform/cmailform.module';
 import { Cadastro2Module } from './modules/cadastro2/cadastro2.module';
@@ -21,7 +21,9 @@ import { CmailListItemComponent } from './cmail-list-item/cmail-list-item.compon
     SharedComponentsModule,
     Cadastro2Module
   ],
-  providers: [],
+  providers: [
+     {provide: LOCALE_ID, useValue: 'pt'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
