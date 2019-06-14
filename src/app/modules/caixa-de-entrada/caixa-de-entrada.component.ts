@@ -23,7 +23,8 @@ export class CaixaDeEntradaComponent implements OnInit {
   email = {
     destinatario: '',
     assunto: '',
-    conteudo: ''
+    conteudo: '',
+    dataDeEnvio: ''
   }
 
   constructor(private emailService: EmailService) { }
@@ -35,10 +36,11 @@ export class CaixaDeEntradaComponent implements OnInit {
           lista => {
             this.emailList = lista;
           }
-          , error => {
-            console.log('deu erro');
-            console.log(error);
-            this.mensagemErro = error.status;
+          ,(responseError : HttpErrorResponse) => {
+            console.log(responseError);
+            if(!responseError.ok){
+              this.mensagemErro = 'Problema com conexão!Não foi possível listar os emails!';
+            }
           }
         )
   }
@@ -66,11 +68,13 @@ export class CaixaDeEntradaComponent implements OnInit {
           this.email = {
             destinatario: '',
             assunto: '',
-            conteudo: ''
+            conteudo: '',
+            dataDeEnvio: ''
           }
         }
-        ,erro => console.error(erro)
-      );
+        ,erro => {
+          console.error(erro);
+        });
       formEmail.reset();
   }
 
