@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CmailFormModule } from './components/cmailform/cmailform.module';
 import { Cadastro2Module } from './modules/cadastro2/cadastro2.module';
 import { ModuloRoteamento } from './app-routing.module';
-import { CmailListItemComponent } from './cmail-list-item/cmail-list-item.component';
+import { CmailListItemComponent } from './components/cmail-list-item/cmail-list-item.component';
 
 @NgModule({
   declarations: [
