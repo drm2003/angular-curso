@@ -5,10 +5,13 @@ import { AuthGuard } from './guards/auth.guard';
 import { CaixaDeEntradaComponent } from './modules/caixa-de-entrada/caixa-de-entrada.component';
 
 const rotas: Routes = [
-    { path: '', loadChildren: 'src/app/modules/login/login.module#LoginModule' },
-    { path: 'inbox', loadChildren: 'src/app/modules/caixa-de-entrada/caixa-de-entrada.module#CaixaDeEntradaModule' , canActivate: [AuthGuard]},
+    /*{ path: '', loadChildren: 'src/app/modules/login/login.module#LoginModule' },
+    { path: 'inbox', loadChildren: 'src/app/modules/caixa-de-entrada/caixa-de-entrada.module#CaixaDeEntradaModule' , canActivate: [AuthGuard]},*/
     /* { path: 'inbox', component : CaixaDeEntradaComponent, canActivate: [AuthGuard]}, */
-    { path: 'cadastro', loadChildren: 'src/app/modules/cadastro/cadastro.module#CadastroModule'},
+    /*{ path: 'cadastro', loadChildren: 'src/app/modules/cadastro/cadastro.module#CadastroModule'},*/
+    { path: '', loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule) },
+    { path: 'inbox', loadChildren: () => import('./modules/caixa-de-entrada/caixa-de-entrada.module').then(m => m.CaixaDeEntradaModule)/*, canActivate: [AuthGuard]*/},
+    { path: 'cadastro', loadChildren: () => import('./modules/cadastro/cadastro.module').then(m => m.CadastroModule)},
     { path: 'cadastro2', component: Cadastro2Component },
     { path: '**', redirectTo: 'inbox' }
 ];

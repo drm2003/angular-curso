@@ -4,9 +4,9 @@ import { CanActivate, Router } from '@angular/router';
 @Injectable()
 export class AuthGuard implements CanActivate{
 
-  constructor(private roteador : Router) { }
+  constructor(private roteador: Router) { }
 
-  canActivate() : boolean {
+  canActivate(): boolean {
     if(localStorage.getItem('TOKEN')){
       return true;
     }else{

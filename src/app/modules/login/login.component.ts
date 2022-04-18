@@ -14,10 +14,11 @@ export class LoginComponent implements OnInit {
   mensagemErro;
   login = {
     email: '',
-    senha: ''
+    senha: '',
+    password: ''
   }
 
-  constructor(private loginService: LoginService, private roteador : Router) { }
+  constructor(private loginService: LoginService, private roteador: Router) { }
 
   ngOnInit() {
   }
@@ -26,12 +27,12 @@ export class LoginComponent implements OnInit {
     if (formLogin.valid) {
         this.loginService
         .logar(this.login)
-        .subscribe(
-          () => this.roteador.navigate(['/inbox'])
-            ,(responseError: HttpErrorResponse) => {
+        .subscribe({
+          next: () => this.roteador.navigate(['/inbox']),
+          error: (responseError: HttpErrorResponse) => {
               this.mensagemErro = responseError.error.body;
             }
-        )
+          })
     }
   }
 

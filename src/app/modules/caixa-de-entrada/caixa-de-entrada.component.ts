@@ -20,7 +20,7 @@ import { HeaderDataService } from '../../services/header.service';
 export class CaixaDeEntradaComponent implements OnInit {
   private _isNewEmailFormOpen = false;
   emailList = [];
-  mensagemErro;
+  mensagemErro = [];
   termoParaFiltro = '';
 
   email = {
@@ -37,13 +37,14 @@ export class CaixaDeEntradaComponent implements OnInit {
   ngOnInit() {
     this.emailService
       .listar()
-      .subscribe(
-        lista => {
+      .subscribe({
+        next: lista => {
           this.emailList = lista;
-        }
-        , (responseError) => {
+        },
+        error: (responseError) => {
           this.mensagemErro = responseError.message;
         }
+      }
       );
 
     this.pageService
@@ -71,8 +72,8 @@ export class CaixaDeEntradaComponent implements OnInit {
 
     this.emailService
       .enviar(this.email)
-      .subscribe(
-        emailApi => {
+      .subscribe({
+        next: emailApi => {
           //fazemos todas as outras operações após o OK da API
           this.emailList.push(emailApi);
 
@@ -82,10 +83,12 @@ export class CaixaDeEntradaComponent implements OnInit {
             conteudo: '',
             dataDeEnvio: ''
           }
-        }
-        , erro => {
+        }, 
+        error: erro => {
           console.error(erro);
-        });
+        }
+      }
+        );
     formEmail.reset();
   }
 
@@ -111,12 +114,13 @@ export class CaixaDeEntradaComponent implements OnInit {
       //o próximo passo é agar da API!
       this.emailService
         .deletar(emailId)
-        .subscribe(
-          res => {
+        .subscribe({
+          next: res => {
             console.log(res);
             this.emailList = this.emailList.filter(email => email.id != emailId);
-          }
-          , err => console.log(err)
+          }, 
+          error: err => console.log(err)
+        }
         )
     }
   }
